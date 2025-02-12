@@ -42,10 +42,11 @@ Time taken: X milliseconds
 */
 
 
-inline fun exploreWaters(timeTaken: () -> Unit): Long {
-    val startTime = System.currentTimeMillis() // start calculating the time
+inline fun exploreWaters(timeTaken: () -> Unit) {
+    var startTime = System.nanoTime() // start calculating the time
     timeTaken() // execute the function
-    return System.currentTimeMillis() - startTime // return the time took to execute it
+    var endTime = System.nanoTime() - startTime
+    println("Time taken: $endTime milliseconds")
 }
 
 fun main() {
@@ -66,9 +67,6 @@ fun main() {
     println(diveMessage("deep sea"))
 
     //Bonus task
-    val exploreTime = exploreWaters{
-        println("Exploring the unknown depths...")
-    }
-    println("Time taken: $exploreTime milliseconds")
+    exploreWaters{ println("Exploring the unknown depths...")}
 
 }
