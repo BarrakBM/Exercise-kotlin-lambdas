@@ -1,3 +1,5 @@
+import kotlin.time.measureTime
+
 //Part 1: Lambda with No Parameters – Greeting the Sea Creatures
 val greetSeaCreatures = { println("Hello, Deep Sea Adventurer!")}
 
@@ -14,11 +16,11 @@ val divideTreasure: (Double, Double) -> Double = {totalTreasure, numExplorers ->
 
 
 // Part 4: Higher-Order Function with Lambda – Calculating Depth
-fun calculateDepth(x: Int, y: Int, operation: (Int, Int) -> Int): Int {
-    return operation(x, y)
+fun calculateDepth(location1: Int, location2: Int, operation: (Int, Int) -> Int): Int {
+    return operation(location1, location2)
 }
 
-val depth:(Int, Int) -> Int = {x, y -> x-y}
+val depth:(Int, Int) -> Int = {location1, location2 -> location1 - location2}
 
 //Part 5: Lambda with Extension Functions – Diving Message
 fun String.loud(): String{
@@ -26,6 +28,25 @@ fun String.loud(): String{
 }
 
 val diveMessage:(String) -> String ={message -> message.loud()}
+
+// Bonus Challenge: Lambda as an Inline Function – Exploring Uncharted Waters
+/*
+Step 1: Define an inline function named exploreWaters that takes a lambda function as a parameter.
+Step 2: Inside exploreWaters, record the start and end time of exploring uncharted waters,
+execute the lambda function, and print the time taken.
+
+Step 3: Call exploreWaters with a lambda that prints "Exploring the unknown depths...".
+Expected Output:
+Exploring the unknown depths...
+Time taken: X milliseconds
+*/
+
+
+inline fun exploreWaters(timeTaken: () -> Unit): Long {
+    val startTime = System.currentTimeMillis() // start calculating the time
+    timeTaken() // execute the function
+    return System.currentTimeMillis() - startTime // return the time took to execute it
+}
 
 fun main() {
 
@@ -44,6 +65,10 @@ fun main() {
     //5th task
     println(diveMessage("deep sea"))
 
-
+    //Bonus task
+    val exploreTime = exploreWaters{
+        println("Exploring the unknown depths...")
+    }
+    println("Time taken: $exploreTime milliseconds")
 
 }
